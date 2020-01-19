@@ -3,6 +3,7 @@ package model;
 import graphics.FieldDisplay;
 import learning.Network;
 import learning.NetworkCollection;
+import main.Utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class GroupController implements Serializable {
     private int runsLimit;
     private int hiddenLayers;
     private double random = 1.0;
+    
     Supplier<Network> init;
     Function<NetworkCollection.NetworkData, Network> newGen;
     
@@ -40,7 +42,7 @@ public class GroupController implements Serializable {
         this.runsLimit = runsLimit;
         this.hiddenLayers = hiddenLayers;
         
-        init = (Supplier<Network> & Serializable)() -> new Network(0, random,width * height, 3, hiddenLayers, activationFunctionType);
+        init = (Supplier<Network> & Serializable)() -> new Network(0, Utils.randomDouble(0, random * collectionSize), (Utils.RADIUS * 2 + 1) * (Utils.RADIUS * 2 + 1), 3, hiddenLayers, activationFunctionType);
         newGen = (Function<NetworkCollection.NetworkData, Network> & Serializable)(d) -> new Network(d.network, random);
         
         collection = new NetworkCollection(0, collectionSize, init, newGen);

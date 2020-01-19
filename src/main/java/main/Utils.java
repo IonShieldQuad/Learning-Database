@@ -12,6 +12,8 @@ import java.sql.*;
 
 public abstract class Utils {
     
+    public static final int RADIUS = 2;
+    
     public static final String dbName = "Learning-Database";
     public static final String url = "jdbc:sqlite:" + dbName + ".db";
     public static final String enableFK = "PRAGMA foreign_keys = ON;";

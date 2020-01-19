@@ -60,16 +60,21 @@ public class BlockField {
         
         List<Double> inputs = new ArrayList<>(width * height);
         //Gather input data
-        for (int i = 0; i < width; i++) {
+        for (int i = -Utils.RADIUS; i <= Utils.RADIUS; i++) {
+            int index = Utils.wrap(controlPosition + i, width);
+    
+            for (int j = 0; j <= 2 * Utils.RADIUS; j++) {
+                inputs.add(field.get(index).get(j).type == Cell.Type.BLOCKED ? 1.0 : 0.0);
+            }
+        }
+        /*for (int i = 0; i < width; i++) {
             int sign = i == 0 ? 0 : i % 2 == 0 ? -1 : 1;
             int index = Utils.wrap(controlPosition + sign * ((i + 1) / 2), width);
     
             for (int j = 0; j < height; j++) {
-                /*if (i != controlPosition && j != 0) {*/
                     inputs.add(field.get(index).get(j).type == Cell.Type.BLOCKED ? 10.0 : -10.0);
-                /*}*/
             }
-        }
+        }*/
     
         int result = 0;
         if (data != null && data.network != null) {
