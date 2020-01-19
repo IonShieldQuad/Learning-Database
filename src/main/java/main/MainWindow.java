@@ -57,7 +57,10 @@ public class MainWindow {
             ex.submit(() -> {
                 deleteGroupButton.setEnabled(false);
                 loadGroupButton.setEnabled(false);
-                deleteSelectedGroup();
+                int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset the group?", "Confirm", JOptionPane.YES_NO_OPTION);
+                if (res == JOptionPane.YES_OPTION) {
+                    deleteSelectedGroup();
+                }
                 deleteGroupButton.setEnabled(true);
                 loadGroupButton.setEnabled(true);
             });
@@ -398,6 +401,11 @@ public class MainWindow {
     }
     
     public static void main(String[] args) {
+        /*try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }*/
         createNewDatabase();
         JFrame frame = new JFrame(TITLE);
         MainWindow gui = new MainWindow();
